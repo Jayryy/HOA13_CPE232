@@ -1,0 +1,17 @@
+  - name: install mariadb and mysql
+    apt:
+      name:
+        - mariadb-server
+        - python3-pymysql
+      state: present
+
+  - name: create and config openstock.cnf
+    template:
+      src: openstack.cnf.j2
+      dest: /etc/mysql/mariadb.conf.d/99-openstack.cnf
+
+  - name: restart mysql service
+    service:
+      name: mysql
+      state: restarted
+
